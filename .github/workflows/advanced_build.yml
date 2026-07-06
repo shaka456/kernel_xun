@@ -274,6 +274,7 @@ jobs:
           echo "# CONFIG_KEXEC_IMAGE_VERIFY_SIG is not set" >> "$CONFIG_FILE"
           echo "# CONFIG_RANDOMIZE_BASE is not set" >> "$CONFIG_FILE"
           echo "# CONFIG_MODVERSIONS is not set" >> "$CONFIG_FILE"
+          echo "# CONFIG_PANIC_TIMEOUT is not set" >> "$CONFIG_FILE"
      
           # LTO Configuration - Enable Thin LTO only
          if [ "${{ github.event.inputs.LtoOptimizations }}" = "thin" ]; then
