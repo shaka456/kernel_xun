@@ -270,6 +270,9 @@ jobs:
           fi
           echo "CONFIG_KEXEC=y" >> "$CONFIG_FILE"
           echo "CONFIG_KEXEC_FILE=y" >> "$CONFIG_FILE"
+          echo "# CONFIG_KEXEC_SIG is not set" >> "$CONFIG_FILE"
+          echo "# CONFIG_KEXEC_IMAGE_VERIFY_SIG is not set" >> "$CONFIG_FILE"
+          echo "# CONFIG_RANDOMIZE_BASE is not set" >> "$CONFIG_FILE"
           echo "# CONFIG_MODVERSIONS is not set" >> "$CONFIG_FILE"
      
           # LTO Configuration - Enable Thin LTO only
