@@ -169,6 +169,9 @@ jobs:
             [ -n "$p" ] && apply_patch "$p"
           done
 
+          # Copy vendor Module.symvers
+          curl -L -o Module.symvers "https://raw.githubusercontent.com/shaka456/kernel_xun/test-kexec-nomodver/files/vendor_Module.symvers"
+
       - name: "🔧 Add BBG Support (KSU variant only)"
         if: matrix.kernel.enable_ksu == true
         working-directory: ./${{ env.KERNEL_LOC_DIR }}/${{ env.KERNEL_NAME }}
