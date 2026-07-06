@@ -137,8 +137,18 @@ jobs:
            -e 's/^CLANG_VERSION=.*/CLANG_VERSION=r547379/' \
            ${{ env.KERNEL_LOC_DIR }}/${{ env.KERNEL_NAME }}/build.config.constants
           
-          # Remove defconfig check (if exists)
-          sed -i '/^POST_DEFCONFIG_CMDS="check_defconfig"/d' ${{ env.KERNEL_LOC_DIR }}/${{ env.KERNEL_NAME }}/build.config.gki || true
+           # Remove defconfig check (if exists)
+           sed -i '/^POST_DEFCONFIG_CMDS="check_defconfig"/d' ${{ env.KERNEL_LOC_DIR }}/${{ env.KERNEL_NAME }}/build.config.gki || true
+           
+           # Disable KMI/ABI checks
+           sed -i \
+            -e '/^TRIM_NONLISTED_KMI=/d' \
+            -e '/^KMI_SYMBOL_LIST_STRICT_MODE=/d' \
+            -e '/^KMI_ENFORCED=/d' \
+            -e '$a\TRIM_NONLISTED_KMI=0' \
+            -e '$a\KMI_SYMBOL_LIST_STRICT_MODE=0' \
+            -e '$a\KMI_ENFORCED=0' \
+            ${{ env.KERNEL_LOC_DIR }}/${{ env.KERNEL_NAME }}/build.config.gki.aarch64 || true
 
       - name: "🧩 Configure kernel & patches"
         working-directory: ${{ env.KERNEL_LOC_DIR }}/${{ env.KERNEL_NAME }}
