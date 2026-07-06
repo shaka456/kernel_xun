@@ -264,12 +264,15 @@ jobs:
          # Remove any existing LTO FULL configuration
          sed -i '/^CONFIG_LTO_CLANG_FULL/d' "$CONFIG_FILE"
     
-         # Set localversion
-         if [ -n "${{ github.event.inputs.localVersion }}" ]; then
-          echo "CONFIG_LOCALVERSION=\"${{ github.event.inputs.localVersion }}\"" >> "$CONFIG_FILE"
-         fi
-    
-         # LTO Configuration - Enable Thin LTO only
+          # Set localversion
+          if [ -n "${{ github.event.inputs.localVersion }}" ]; then
+           echo "CONFIG_LOCALVERSION=\"${{ github.event.inputs.localVersion }}\"" >> "$CONFIG_FILE"
+          fi
+          echo "CONFIG_KEXEC=y" >> "$CONFIG_FILE"
+          echo "CONFIG_KEXEC_FILE=y" >> "$CONFIG_FILE"
+          echo "# CONFIG_MODVERSIONS is not set" >> "$CONFIG_FILE"
+     
+          # LTO Configuration - Enable Thin LTO only
          if [ "${{ github.event.inputs.LtoOptimizations }}" = "thin" ]; then
            sed -i '/CONFIG_LTO_CLANG_FULL/d' "$CONFIG_FILE"
            echo "CONFIG_LTO_CLANG=y" >> "$CONFIG_FILE"

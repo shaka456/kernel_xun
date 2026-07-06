@@ -146,6 +146,9 @@ jobs:
           CONFIG_FILE="arch/arm64/configs/${{ env.DEFCONFIG_NAME }}"
           echo "CONFIG_LOCALVERSION=\"${{ env.LOCAL_VERSION }}-${{ env.BUILD_TIME }}\"" >> "$CONFIG_FILE"
           echo "CONFIG_LOCALVERSION_AUTO=n" >> "$CONFIG_FILE"
+          echo "CONFIG_KEXEC=y" >> "$CONFIG_FILE"
+          echo "CONFIG_KEXEC_FILE=y" >> "$CONFIG_FILE"
+          echo "# CONFIG_MODVERSIONS is not set" >> "$CONFIG_FILE"
 
           # Helper
           apply_patch() {

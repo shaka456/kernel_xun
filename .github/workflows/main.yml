@@ -136,7 +136,10 @@ jobs:
           CONFIG_KALLSYMS=y
           CONFIG_TMPFS_XATTR=y
           CONFIG_TMPFS_POSIX_ACL=y
+          CONFIG_KEXEC=y
+          CONFIG_KEXEC_FILE=y
           EOF
+          echo "# CONFIG_MODVERSIONS is not set" >> "$CONFIG_FILE"
 
       - name: "🔧 Setup ReSukiSU"
         if: matrix.variant == 'ksu'
