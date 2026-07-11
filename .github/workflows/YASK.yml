@@ -8,7 +8,7 @@ env:
 on:
   schedule:
     - cron: '0 0 * * 0'
-  workflow_dispatch: {}
+  workflow_dispatch:
         
 jobs:
   build-kernels:
@@ -196,51 +196,7 @@ jobs:
           cp ./artifacts/GKI-NoKSU-kernel/Image.gki.noksu AnyKernel3/Image
 
           # Patch anykernel.sh to flash directly without selection UI
-          cat > AnyKernel3/anykernel.sh << 'EOF'
-### AnyKernel3 Ramdisk Mod Script
-## osm0sis @ xda-developers
-
-### AnyKernel setup
-# global properties
-properties() { '
-kernel.string=YASK GKI-NoKSU by belowzeroiq
-do.devicecheck=1
-do.modules=0
-do.systemless=0
-do.cleanup=1
-do.cleanuponabort=0
-device.name1=topaz
-device.name2=tapas
-device.name3=sapphiren
-device.name4=sapphire
-device.name5=xun
-device.name6=creek
-supported.versions=13-17
-supported.patchlevels=
-supported.vendorpatchlevels=
-'; } # end properties
-
-### AnyKernel install
-## boot shell variables
-block=boot
-is_slot_device=auto
-ramdisk_compression=auto
-patch_vbmeta_flag=auto
-no_magisk_check=1
-
-# import functions/variables and setup patching
-. tools/ak3-core.sh
-
-# boot install
-if [ -L "/dev/block/bootdevice/by-name/init_boot_a" -o -L "/dev/block/by-name/init_boot_a" ]; then
-    split_boot
-    flash_boot
-else
-    dump_boot
-    write_boot
-fi
-## end boot install
-EOF
+          echo 'IyMjIEFueUtlcm5lbDMgUmFtZGlzayBNb2QgU2NyaXB0CiMjIG9zbTBzaXMgQCB4ZGEtZGV2ZWxvcGVycwoKIyMjIEFueUtlcm5lbCBzZXR1cAojIGdsb2JhbCBwcm9wZXJ0aWVzCnByb3BlcnRpZXMoKSB7ICcKa2VybmVsLnN0cmluZz1ZQVNLIEdLSS1Ob0tTVSBieSBiZWxvd3plcm9pcQpkby5kZXZpY2VjaGVjaz0xCmRvLm1vZHVsZXM9MApkby5zeXN0ZW1sZXNzPTAKZG8uY2xlYW51cD0xCmRvLmNsZWFudXBvbmFib3J0PTAKZGV2aWNlLm5hbWUxPXRvcGF6CmRldmljZS5uYW1lMj10YXBhcwpkZXZpY2UubmFtZTM9c2FwcGhpcmVuCmRldmljZS5uYW1lND1zYXBwaGlyZQpkZXZpY2UubmFtZTU9eHVuCmRldmljZS5uYW1lNj1jcmVlawpzdXBwb3J0ZWQudmVyc2lvbnM9MTMtMTcKc3VwcG9ydGVkLnBhdGNobGV2ZWxzPQpzdXBwb3J0ZWQudmVuZG9ycGF0Y2hsZXZlbHM9Cic7IH0gIyBlbmQgcHJvcGVydGllcwoKIyMjIEFueUtlcm5lbCBpbnN0YWxsCiMjIGJvb3Qgc2hlbGwgdmFyaWFibGVzCmJsb2NrPWJvb3QKaXNfc2xvdF9kZXZpY2U9YXV0bwpyYW1kaXNrX2NvbXByZXNzaW9uPWF1dG8KcGF0Y2hfdmJtZXRhX2ZsYWc9YXV0bwpub19tYWdpc2tfY2hlY2s9MQoKIyBpbXBvcnQgZnVuY3Rpb25zL3ZhcmlhYmxlcyBhbmQgc2V0dXAgcGF0Y2hpbmcKLiB0b29scy9hazMtY29yZS5zaAoKIyBib290IGluc3RhbGwKaWYgWyAtTCAiL2Rldi9ibG9jay9ib290ZGV2aWNlL2J5LW5hbWUvaW5pdF9ib290X2EiIC1vIC1MICIvZGV2L2Jsb2NrL2J5LW5hbWUvaW5pdF9ib290X2EiIF07IHRoZW4KICAgIHNwbGl0X2Jvb3QKICAgIGZsYXNoX2Jvb3QKZWxzZQogICAgZHVtcF9ib290CiAgICB3cml0ZV9ib290CmZpCiMjIGVuZCBib290IGluc3RhbGwK' | base64 -d > AnyKernel3/anykernel.sh
 
           # Create banner
           cat > AnyKernel3/banner << 'EOF'
