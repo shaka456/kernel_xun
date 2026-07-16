@@ -144,6 +144,11 @@ jobs:
           CONFIG_PID_NS=y
           CONFIG_DEVTMPFS=y
           CONFIG_NETFILTER_XT_MATCH_ADDRTYPE=y
+          # kexec support for hot-reboot testing
+          CONFIG_KEXEC=y
+          CONFIG_KEXEC_FILE=y
+          # CONFIG_KEXEC_SIG is not set
+          # CONFIG_KEXEC_IMAGE_VERIFY_SIG is not set
           EOF
           
           echo "✅ Basic configs added"
